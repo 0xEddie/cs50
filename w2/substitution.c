@@ -50,12 +50,10 @@ int main(int argc, string argv[])
         return 1;
     }
     // iterate through key, to check chars are alphabetic and don't contain dups
+    // store key chars as uppercase, for easier enciphering of plaintext
     char key[27] = "";
     for (int i = 0, len = strlen(key_raw); i < len; i++)
     {
-        // printf("i: %i\n", i);
-        // printf("key_raw[i]: %c\n", key_raw[i]);
-        // printf("isalpha(key_raw[i]): %i\n", isalpha(key_raw[i]));
         if (!isalpha(key_raw[i]))
         {
             printf("Key must only contain alphabetic characters.\n");
@@ -75,10 +73,10 @@ int main(int argc, string argv[])
 
     // OUTPUT substituted cipher text, preserving case
     /*
-    Since we are only processing one string (and not combining a dynamic number of strings), manually
-    encipher characters to an output array, then print the array.
+    Since we are only processing one string (and not combining a dynamic number of strings),
+    manually encipher characters to an output array, then print the array.
     - don't use `strcat` -> is O(n^2) runtime in a forloop
-    - saving chars to array results in only one syscall to print, intstead of one print syscall per char
+    - save chars to array -> only one syscall to print, intstead of one print syscall per char
     */
     int text_length = strlen(plaintext) + 1;
     char ciphertext[text_length];
@@ -93,7 +91,8 @@ int main(int argc, string argv[])
             ciphertext[i] = c;
         }
         // pass nonalphabetic characters directly
-        else {
+        else
+        {
             ciphertext[i] = plaintext[i];
         }
     }
