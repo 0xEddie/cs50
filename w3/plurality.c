@@ -65,13 +65,26 @@ int main(int argc, string argv[])
 // Update vote totals given a new vote
 bool vote(string name)
 {
-    // TODO
+    // TODO string compare `name` against names of candidates in array, increment vote
+    /*optimized version?
+    - concatonate all candidate names
+    - record first char position of each name
+    - use substring comparison to get position of matching candidate
+    - update cand vote count
+    */
+    for (int i = 0; i < candidate_count; i++) {
+        if (strcmp(candidates[i].name, name) == 0) {
+            candidates[i].votes++;
+            return true;
+        }
+    }
     return false;
 }
 
 // Print the winner (or winners) of the election
 void print_winner(void)
 {
-    // TODO
+    // TODO use selection sort to sort candidate array by vote count descending
     return;
 }
+
