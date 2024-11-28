@@ -72,8 +72,10 @@ bool vote(string name)
     - use substring comparison to get position of matching candidate
     - update cand vote count
     */
-    for (int i = 0; i < candidate_count; i++) {
-        if (strcmp(candidates[i].name, name) == 0) {
+    for (int i = 0; i < candidate_count; i++)
+    {
+        if (strcmp(candidates[i].name, name) == 0)
+        {
             candidates[i].votes++;
             return true;
         }
@@ -85,6 +87,30 @@ bool vote(string name)
 void print_winner(void)
 {
     // TODO use selection sort to sort candidate array by vote count descending
+    for (int i = 0; i < candidate_count - 1; i++)
+    {
+        // set max index to current position
+        int max_idx = i;
+        // search through unsorted portion to find max value
+        for (int j = i; j < candidate_count; j++)
+        {
+            if (candidates[j].votes > candidates[max_idx].votes)
+                max_idx = j;
+        }
+        // move min element to correct position
+        candidate temp = candidates[i];
+        candidates[i] = candidates[max_idx];
+        candidates[max_idx] = temp;
+    }
+
+    // print winners of election
+    int max_votes = candidates[0].votes;
+    for (int i = 0; i < candidate_count; i++)
+    {
+        if (!(candidates[i].votes == max_votes))
+            break;
+        printf("%s\n", candidates[i].name);
+    }
     return;
 }
 
